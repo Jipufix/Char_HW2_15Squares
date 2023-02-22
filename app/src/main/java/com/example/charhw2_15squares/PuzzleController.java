@@ -6,15 +6,15 @@ package com.example.charhw2_15squares;
   Date: 2.8.23
  */
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
 
 
 import java.util.Random;
 
 public class PuzzleController implements View.OnClickListener, Runnable {
-    private PuzzleView view;
+    protected PuzzleView view;
     protected PuzzleModel model;
 
     public PuzzleController (PuzzleView v) {
@@ -42,6 +42,7 @@ public class PuzzleController implements View.OnClickListener, Runnable {
      * @param tempNum The random number to be appended to the button
      * @param tempBut The button to be appended to
      */
+    @SuppressLint("SetTextI18n")
     public void appendNumbers (int tempNum, Button tempBut, int i, int j) {
         tempBut.setText(tempNum + "");
         if (tempNum == 16) {
@@ -71,7 +72,6 @@ public class PuzzleController implements View.OnClickListener, Runnable {
     public Button findInvButton () {
         for (int i = 0; i < model.buttons.length ; i++) {
             for (int j = 0; j < model.buttons[i].length; j++) {
-                int num = Integer.parseInt(String.valueOf(model.buttons[i][j].getText())); //Pulls out the number from the button
                 if (model.buttons[i][j].getVisibility() == View.INVISIBLE) {
                     return model.buttons[i][j];
                 }
@@ -88,8 +88,8 @@ public class PuzzleController implements View.OnClickListener, Runnable {
      * @param col  The column of the invisible button
      * @return     Returns true if the buttons can be swapped, false if not
      */
-    public Boolean isAdjacent(Button b, int row, int col) {
-        Boolean swappable = false;
+    public boolean isAdjacent(Button b, int row, int col) {
+        boolean swappable = false;
 
         if (row > 0) {//checks Left
             if (b == model.buttons[row - 1][col]) {
@@ -132,11 +132,9 @@ public class PuzzleController implements View.OnClickListener, Runnable {
             b1.setText(b2.getText());
             b2.setText(temp);
 
-            b1.setVisibility(view.INVISIBLE);
-            b2.setVisibility(view.VISIBLE);
-            return;
+            b1.setVisibility(View.INVISIBLE);
+            b2.setVisibility(View.VISIBLE);
         }
-        return;
     }//swapButtons
 
     @Override

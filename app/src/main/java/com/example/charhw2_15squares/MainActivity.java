@@ -8,16 +8,10 @@ package com.example.charhw2_15squares;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Random;
-
 public class MainActivity extends AppCompatActivity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         int[] shuffledNum = controller.shuffleNumbers();
+
+        //Sets up every button to be accessed and used
         for (int i = 0; i < model.buttons.length; i++){
             for (int j = 0; j < model.buttons[i].length; j++){
                 int tempNum = shuffledNum[(i * 4) + j];
@@ -39,6 +35,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }//onCreate
-
-
 }
