@@ -60,7 +60,8 @@ public class PuzzleController implements View.OnClickListener, Runnable {
         return true;
     }//checkNumbers
 
-    public void swapButtons (){
+    public void swapButtons (Button b1){
+        int i =
 
     }//swapButtons
 

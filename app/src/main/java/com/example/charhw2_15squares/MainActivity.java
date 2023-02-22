@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 Button tempBut = (Button) findViewById(model.buttonIds[(i * 4) + j]);
                 tempBut.setText(tempNum + "");
                 model.buttons[i][j] = tempBut;
+                tempBut.setOnClickListener(controller);
             }
         }
     }//onCreate
