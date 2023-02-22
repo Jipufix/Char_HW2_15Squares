@@ -38,9 +38,15 @@ public class PuzzleController implements View.OnClickListener, Runnable {
     /**
      * Sets the text for each individual button
      *
-     * @param shuffledNum The shuffled numbers to be appended to each button
+     * @param tempNum The random number to be appended to the button
+     * @param tempBut The button to be appended to
      */
-    public void appendNumbers (int[] shuffledNum) {
+    public void appendNumbers (int tempNum, Button tempBut, int i, int j) {
+        tempBut.setText(tempNum + "");
+        if (tempNum == 16) {
+            tempBut.setVisibility(View.INVISIBLE);
+        }
+        model.buttons[i][j] = tempBut;
     }//appendNumbers
 
     /**
@@ -60,12 +66,13 @@ public class PuzzleController implements View.OnClickListener, Runnable {
         return true;
     }//checkNumbers
 
-    public void swapButtons (){
+    public void swapButtons (Button b1){
 
     }//swapButtons
 
     @Override
     public void onClick(View view) {
+
         checkNumbers();
     }
 

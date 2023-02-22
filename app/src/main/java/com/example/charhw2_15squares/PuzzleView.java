@@ -13,7 +13,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
-public class PuzzleView extends SurfaceView{
+public class PuzzleView extends SurfaceView {
 
 
     private PuzzleModel model;
@@ -27,7 +27,6 @@ public class PuzzleView extends SurfaceView{
         //IDK what this does but I was told it was important
         setWillNotDraw(false);
     }//ctor
-
 
     @Override
     public void onDraw (Canvas canvas) {
