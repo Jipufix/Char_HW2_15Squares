@@ -8,6 +8,7 @@ package com.example.charhw2_15squares;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 
 
 import java.util.Random;
@@ -38,9 +39,15 @@ public class PuzzleController implements View.OnClickListener, Runnable {
     /**
      * Sets the text for each individual button
      *
-     * @param shuffledNum The shuffled numbers to be appended to each button
+     * @param tempNum The random number to be appended to the button
+     * @param tempBut The button to be appended to
      */
-    public void appendNumbers (int[] shuffledNum) {
+    public void appendNumbers (int tempNum, Button tempBut, int i, int j) {
+        tempBut.setText(tempNum + "");
+        if (tempNum == 16) {
+            tempBut.setVisibility(View.INVISIBLE);
+        }
+        model.buttons[i][j] = tempBut;
     }//appendNumbers
 
     /**
@@ -60,13 +67,59 @@ public class PuzzleController implements View.OnClickListener, Runnable {
         return true;
     }//checkNumbers
 
+    /** Helper method to find the invisible button*/
+    public int findInvButton () {
+        for (int i = 0; i < model.buttons.size(); i++) {
+            int num = Integer.parseInt(String.valueOf(model.buttons.get(i).getText())); //Pulls out the number from the button
+            if (num == 16) {
+                return i;
+            }
+        }
+        return -1;
+    }//findInvButton
+
+
+    /**
+     * Swaps a clicked button with the invisible button
+     *
+     * @param b1 The button clicked that needs to be swapped
+     */
     public void swapButtons (Button b1){
-        int i =
+        int i = findInvButton();//Index of the invisible button
+        Button b2 = model.buttons.get(i);
+
+//        int buttonHeight = b1.getHeight() + 50;
+//        int buttonWidth = b1.getWidth() + 50;
+//        int rowDifference = (int) Math.abs(b1.getX() - b2.getX());
+//        int colDifference = (int) Math.abs(b1.getY() - b2.getY());
+//
+//        //checks to see if the buttons are adjacent
+//        if  ((rowDifference <= buttonWidth && colDifference <= 50) ||
+//                (rowDifference <= 50 && colDifference <= buttonHeight)) {
+//            String temp = (String) b1.getText();
+//            b1.setText(b2.getText());
+//            b2.setText(temp);
+//
+//            b1.setVisibility(View.INVISIBLE);
+//            b2.setVisibility(View.VISIBLE);
+//        }
+        int left = i - 1;
+        int right = i + 1;
+        int above = i - 4;
+        int below = i + 4;
+        if (i % 4 == 0) {//button is on the left
+
+        }
+        if (b1 == model.buttons.get(left)){
+            
+        }
 
     }//swapButtons
 
     @Override
     public void onClick(View view) {
+        Button b1 = (Button) view;
+        swapButtons(b1);
         checkNumbers();
     }
 

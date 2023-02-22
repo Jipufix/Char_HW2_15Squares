@@ -8,6 +8,9 @@ package com.example.charhw2_15squares;
 
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class PuzzleModel {
     protected final int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
     int[] buttonIds = {R.id.button_00, R.id.button_01, R.id.button_02, R.id.button_03,
@@ -38,4 +41,3 @@ public class PuzzleModel {
         return -1;
     }//getCol
 }
-
