@@ -1,9 +1,9 @@
 package com.example.charhw2_15squares;
 
-/**
- * Author: Ashton Char
- * Course: CS 301A
- * Date: 2/14/23
+/*
+  Author: Ashton Char
+  Course: CS 301A
+  Date: 2.8.23
  */
 
 import android.content.Context;
@@ -26,8 +26,6 @@ public class PuzzleView extends SurfaceView{
 
         //IDK what this does but I was told it was important
         setWillNotDraw(false);
-
-        model.buttons = new Button[4][4];
     }//ctor
 
 
@@ -36,7 +34,7 @@ public class PuzzleView extends SurfaceView{
 
     }
 
-    // PuzzleModel getter method
+    /** PuzzleModel getter method */
     public PuzzleModel getPuzzleModel() {
         return model;
     }

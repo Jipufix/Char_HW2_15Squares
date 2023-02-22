@@ -1,26 +1,27 @@
 package com.example.charhw2_15squares;
 
-/**
- * Author: Ashton Char
- * Course: CS 301A
- * Date: 2/14/23
+/*
+  Author: Ashton Char
+  Course: CS 301A
+  Date: 2.8.23
  */
+
 import android.view.View;
 import android.widget.Button;
 
+
 import java.util.Random;
-import java.util.logging.Handler;
 
 public class PuzzleController implements View.OnClickListener, Runnable {
     private PuzzleView view;
-    private PuzzleModel model;
+    protected PuzzleModel model;
 
     public PuzzleController (PuzzleView v) {
         view = v;
         model = view.getPuzzleModel();
     }//ctor
 
-
+    /** Shuffles the numbers array [0-15] and stores it as a separate array*/
     public int[] shuffleNumbers () {
         int[] tempArr = model.numbers;
         Random random = new Random();
@@ -34,13 +35,38 @@ public class PuzzleController implements View.OnClickListener, Runnable {
         return tempArr;
     }//shuffleNumbers
 
-    void addButton (int row, int col, View id) {
+    /**
+     * Sets the text for each individual button
+     *
+     * @param shuffledNum The shuffled numbers to be appended to each button
+     */
+    public void appendNumbers (int[] shuffledNum) {
+    }//appendNumbers
 
-    }//addButton
+    /**
+    * Checks to see if all of the numbers are in the correct order
+    *
+    * @return true if all of the button's numbers are in order, false if they are not.
+    * */
+    public boolean checkNumbers () {
+        for (int i = 0; i < model.buttons.length; i++) {
+            for (int j = 0; j < model.buttons[i].length; j++) {
+                int num = Integer.parseInt(String.valueOf(model.buttons[i][j].getText())); //Pulls out the number from the button
+                if (!(model.numbers[i] == num)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }//checkNumbers
+
+    public void swapButtons (){
+
+    }//swapButtons
 
     @Override
     public void onClick(View view) {
-
+        checkNumbers();
     }
 
     @Override

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <SurfaceView
+    <com.example.charhw2_15squares.PuzzleView
         android:id="@+id/puzzleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="3" />
+
             <Button
                 android:id="@+id/button_10"
                 android:layout_width="wrap_content"
@@ -125,7 +126,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="3"
-                android:layout_column="3"/>
+                android:layout_column="3"
+                android:visibility="invisible" />
     </GridLayout>
 
 </FrameLayout>
