@@ -17,5 +17,5 @@ public class PuzzleModel {
                         R.id.button_10, R.id.button_11, R.id.button_12, R.id.button_13,
                         R.id.button_20, R.id.button_21, R.id.button_22, R.id.button_23,
                         R.id.button_30, R.id.button_31, R.id.button_32, R.id.button_33};
-    protected Button[][] buttons = new Button[4][4];
+    protected ArrayList<Button> buttons = new ArrayList<Button>();
 }

@@ -30,13 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         int[] shuffledNum = controller.shuffleNumbers();
-        for (int i = 0; i < model.buttons.length; i++){
-            for (int j = 0; j < model.buttons[i].length; j++){
-                int tempNum = shuffledNum[(i * 4) + j];
-                Button tempBut = (Button) findViewById(model.buttonIds[(i * 4) + j]);
-                controller.appendNumbers(tempNum, tempBut, i, j);
-                tempBut.setOnClickListener(controller);
-            }
+        for (int i = 0; i < model.buttons.size(); i++){
+            int tempNum = shuffledNum[i];
+            Button tempBut = (Button) findViewById(model.buttonIds[i]);
+            controller.appendNumbers(tempNum, tempBut, i);
+            tempBut.setOnClickListener(controller);
         }
     }//onCreate
 
