@@ -19,6 +19,10 @@ public class PuzzleModel {
                         R.id.button_30, R.id.button_31, R.id.button_32, R.id.button_33};
     protected Button[][] buttons = new Button[4][4];
 
+    public PuzzleModel (){
+
+    }//empty constructor
+
     /** Getter method to return the row of a given button*/
     public int getRow (Button b) {
         for (int i = 0; i < buttons.length; i++) {

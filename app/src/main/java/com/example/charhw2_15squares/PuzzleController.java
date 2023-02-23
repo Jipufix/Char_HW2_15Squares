@@ -68,16 +68,51 @@ public class PuzzleController implements View.OnClickListener, Runnable {
     }//checkNumbers
 
     /** Helper method to find the invisible button*/
-    public int findInvButton () {
-        for (int i = 0; i < model.buttons.size(); i++) {
-            int num = Integer.parseInt(String.valueOf(model.buttons.get(i).getText())); //Pulls out the number from the button
-            if (num == 16) {
-                return i;
+    public Button findInvButton () {
+        for (int i = 0; i < model.buttons.length ; i++) {
+            for (int j = 0; j < model.buttons[i].length; j++) {
+                int num = Integer.parseInt(String.valueOf(model.buttons[i][j].getText())); //Pulls out the number from the button
+                if (model.buttons[i][j].getVisibility() == View.INVISIBLE) {
+                    return model.buttons[i][j];
+                }
             }
         }
-        return -1;
+        return null;
     }//findInvButton
 
+    /**
+     * Checks to see if a button is adjacent to the invisible button
+     *
+     * @param b    The button to be checked
+     * @param row  The row of the invisible button
+     * @param col  The column of the invisible button
+     * @return     Returns true if the buttons can be swapped, false if not
+     */
+    public Boolean isAdjacent(Button b, int row, int col) {
+        Boolean swappable = false;
+
+        if (row > 0) {//checks Left
+            if (b == model.buttons[row - 1][col]) {
+                swappable = true;
+            }
+        }
+        if (row < model.buttons[row].length - 1) {//checks right
+            if (b == model.buttons[row + 1][col]) {
+                swappable = true;
+            }
+        }
+        if (col > 0) {
+            if (b == model.buttons[row][col - 1]) {
+                swappable = true;
+            }
+        }
+        if (col < model.buttons.length - 1) {
+            if (b == model.buttons[row][col + 1]) {
+                swappable = true;
+            }
+        }
+        return swappable;
+    }//isAdjacent
 
     /**
      * Swaps a clicked button with the invisible button
@@ -85,35 +120,23 @@ public class PuzzleController implements View.OnClickListener, Runnable {
      * @param b1 The button clicked that needs to be swapped
      */
     public void swapButtons (Button b1){
-        int i = findInvButton();//Index of the invisible button
-        Button b2 = model.buttons.get(i);
+        Button b2;
+        if (findInvButton() != null) {
+            b2 = findInvButton(); //Invisible Button
+        } else {return;}
 
-//        int buttonHeight = b1.getHeight() + 50;
-//        int buttonWidth = b1.getWidth() + 50;
-//        int rowDifference = (int) Math.abs(b1.getX() - b2.getX());
-//        int colDifference = (int) Math.abs(b1.getY() - b2.getY());
-//
-//        //checks to see if the buttons are adjacent
-//        if  ((rowDifference <= buttonWidth && colDifference <= 50) ||
-//                (rowDifference <= 50 && colDifference <= buttonHeight)) {
-//            String temp = (String) b1.getText();
-//            b1.setText(b2.getText());
-//            b2.setText(temp);
-//
-//            b1.setVisibility(View.INVISIBLE);
-//            b2.setVisibility(View.VISIBLE);
-//        }
-        int left = i - 1;
-        int right = i + 1;
-        int above = i - 4;
-        int below = i + 4;
-        if (i % 4 == 0) {//button is on the left
+        int row = model.getRow(b2); int col = model.getCol(b2);
 
+        if (isAdjacent(b1, row, col)) {
+            String temp = (String) (b1.getText());
+            b1.setText(b2.getText());
+            b2.setText(temp);
+
+            b1.setVisibility(view.INVISIBLE);
+            b2.setVisibility(view.VISIBLE);
+            return;
         }
-        if (b1 == model.buttons.get(left)){
-            
-        }
-
+        return;
     }//swapButtons
 
     @Override
