@@ -9,6 +9,8 @@ package com.example.charhw2_15squares;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.FrameLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,17 +24,21 @@ public class MainActivity extends AppCompatActivity {
         PuzzleModel model = view.getPuzzleModel();
         PuzzleController controller = new PuzzleController(view);
 
+        Button resetBut = (Button) findViewById(model.resetId);
+        Button solveBut = (Button) findViewById(model.solveId);
+        resetBut.setOnClickListener(controller);
+        solveBut.setOnClickListener(controller);
 
-        int[] shuffledNum = controller.shuffleNumbers();
 
+        model.shuffledNumbers = controller.shuffleNumbers();
         //Sets up every button to be accessed and used
-        for (int i = 0; i < model.buttons.length; i++){
-            for (int j = 0; j < model.buttons[i].length; j++){
-                int tempNum = shuffledNum[(i * 4) + j];
+        for (int i = 0; i < model.buttons.length; i++) {
+            for (int j = 0; j < model.buttons[i].length; j++) {
                 Button tempBut = (Button) findViewById(model.buttonIds[(i * 4) + j]);
-                controller.appendNumbers(tempNum, tempBut, i, j);
+                controller.appendNumbers(model.shuffledNumbers[(i * 4) + j], tempBut);
+                model.buttons[i][j] = tempBut;
                 tempBut.setOnClickListener(controller);
             }
         }
-    }//onCreate
+    }//onCreate}
 }

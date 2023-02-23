@@ -6,16 +6,16 @@ package com.example.charhw2_15squares;
   Date: 2.8.23
  */
 
-import android.annotation.SuppressLint;
+
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
-
-
 import java.util.Random;
 
 public class PuzzleController implements View.OnClickListener, Runnable {
     protected PuzzleView view;
     protected PuzzleModel model;
+
 
     public PuzzleController (PuzzleView v) {
         view = v;
@@ -24,7 +24,10 @@ public class PuzzleController implements View.OnClickListener, Runnable {
 
     /** Shuffles the numbers array [0-15] and stores it as a separate array*/
     public int[] shuffleNumbers () {
-        int[] tempArr = model.numbers;
+        int[] tempArr = new int[PuzzleModel.numbers.length];
+        for (int num : PuzzleModel.numbers) {
+            tempArr[num - 1] = num;
+        }
         Random random = new Random();
         for (int i = tempArr.length - 1; i > 0; i--) {
             int rand = random.nextInt(i + 1);
@@ -42,13 +45,12 @@ public class PuzzleController implements View.OnClickListener, Runnable {
      * @param tempNum The random number to be appended to the button
      * @param tempBut The button to be appended to
      */
-    @SuppressLint("SetTextI18n")
-    public void appendNumbers (int tempNum, Button tempBut, int i, int j) {
-        tempBut.setText(tempNum + "");
+    public void appendNumbers (int tempNum, Button tempBut) {
+        String tempString = tempNum + "";
+        tempBut.setText(tempString);
         if (tempNum == 16) {
             tempBut.setVisibility(View.INVISIBLE);
         }
-        model.buttons[i][j] = tempBut;
     }//appendNumbers
 
     /**
@@ -60,7 +62,7 @@ public class PuzzleController implements View.OnClickListener, Runnable {
         for (int i = 0; i < model.buttons.length; i++) {
             for (int j = 0; j < model.buttons[i].length; j++) {
                 int num = Integer.parseInt(String.valueOf(model.buttons[i][j].getText())); //Pulls out the number from the button
-                if (!(model.numbers[i] == num)) {
+                if (!(PuzzleModel.numbers[(i * 4) + j] == num)) {
                     return false;
                 }
             }
@@ -139,9 +141,28 @@ public class PuzzleController implements View.OnClickListener, Runnable {
 
     @Override
     public void onClick(View view) {
-        Button b1 = (Button) view;
-        swapButtons(b1);
-        checkNumbers();
+        Button b1 = (Button) view;//Button Clicked
+
+        if (b1.getId() == model.resetId) {//Reset button is clicked
+            model.shuffledNumbers = shuffleNumbers();
+            for (int i = 0; i < model.buttons.length; i++) {
+                for (int j = 0; j < model.buttons[i].length; j++) {
+                    model.buttons[i][j].setVisibility(View.VISIBLE);
+                    appendNumbers(model.shuffledNumbers[(i * 4) + j], model.buttons[i][j]);
+                }
+            }
+        }
+        else if (b1.getId() == model.solveId) {// Solves the puzzle
+            for (int i = 0; i < model.buttons.length; i++) {
+                for (int j = 0; j < model.buttons[i].length; j++) {
+                    model.buttons[i][j].setVisibility(View.VISIBLE);
+                    appendNumbers((i * 4) + j + 1, model.buttons[i][j]);
+                }
+            }
+        }
+        else{//Puzzle button is clicked
+            swapButtons(b1);
+        }
     }
 
     @Override

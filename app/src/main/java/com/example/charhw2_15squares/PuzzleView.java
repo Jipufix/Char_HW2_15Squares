@@ -7,14 +7,13 @@ package com.example.charhw2_15squares;
  */
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 
 public class PuzzleView extends SurfaceView{
 
 
-    private PuzzleModel model;
+    private final PuzzleModel model;
 
     public PuzzleView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -27,10 +26,7 @@ public class PuzzleView extends SurfaceView{
     }//ctor
 
 
-    @Override
-    public void onDraw (Canvas canvas) {
 
-    }
 
     /** PuzzleModel getter method */
     public PuzzleModel getPuzzleModel() {

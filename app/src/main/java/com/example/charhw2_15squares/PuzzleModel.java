@@ -7,18 +7,18 @@ package com.example.charhw2_15squares;
  */
 
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 public class PuzzleModel {
-    protected final int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+    protected static int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+    protected int[] shuffledNumbers = new int[16];
     int[] buttonIds = {R.id.button_00, R.id.button_01, R.id.button_02, R.id.button_03,
                         R.id.button_10, R.id.button_11, R.id.button_12, R.id.button_13,
                         R.id.button_20, R.id.button_21, R.id.button_22, R.id.button_23,
                         R.id.button_30, R.id.button_31, R.id.button_32, R.id.button_33};
+    int resetId = R.id.reset;
+    int solveId = R.id.solve;
     protected Button[][] buttons = new Button[4][4];
-
-    public PuzzleModel (){
-
-    }//empty constructor
 
     /** Getter method to return the row of a given button*/
     public int getRow (Button b) {
