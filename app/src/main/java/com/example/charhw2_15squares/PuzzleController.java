@@ -8,11 +8,14 @@ package com.example.charhw2_15squares;
 
 
 import android.graphics.Color;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
+
 import java.util.Random;
 
-public class PuzzleController implements View.OnClickListener, Runnable {
+public class PuzzleController implements View.OnClickListener {
     protected PuzzleView view;
     protected PuzzleModel model;
 
@@ -22,7 +25,7 @@ public class PuzzleController implements View.OnClickListener, Runnable {
         model = view.getPuzzleModel();
     }//ctor
 
-    /** Shuffles the numbers array [0-15] and stores it as a separate array*/
+    /** Shuffles the numbers array [0-15] and stores it as a separate array */
     public int[] shuffleNumbers () {
         int[] tempArr = new int[PuzzleModel.numbers.length];
         for (int num : PuzzleModel.numbers) {
@@ -58,7 +61,7 @@ public class PuzzleController implements View.OnClickListener, Runnable {
     *
     * @return true if all of the button's numbers are in order, false if they are not.
     * */
-    public boolean checkNumbers () {
+    public boolean checkNumbers() {
         for (int i = 0; i < model.buttons.length; i++) {
             for (int j = 0; j < model.buttons[i].length; j++) {
                 int num = Integer.parseInt(String.valueOf(model.buttons[i][j].getText())); //Pulls out the number from the button
@@ -103,12 +106,12 @@ public class PuzzleController implements View.OnClickListener, Runnable {
                 swappable = true;
             }
         }
-        if (col > 0) {
+        if (col > 0) {//checks above
             if (b == model.buttons[row][col - 1]) {
                 swappable = true;
             }
         }
-        if (col < model.buttons.length - 1) {
+        if (col < model.buttons.length - 1) {//checks below
             if (b == model.buttons[row][col + 1]) {
                 swappable = true;
             }
@@ -160,13 +163,14 @@ public class PuzzleController implements View.OnClickListener, Runnable {
                 }
             }
         }
-        else{//Puzzle button is clicked
+        else{//Button within puzzle is clicked
             swapButtons(b1);
         }
-    }
-
-    @Override
-    public void run() {
-
-    }
+        if (checkNumbers()) {
+            //Numbers are all in the right spot, change the background color to the "correct color"
+        }
+        else {
+            //Numbers are in the wrong spot, change the background color back to black
+        }
+    }//onClick
 }
