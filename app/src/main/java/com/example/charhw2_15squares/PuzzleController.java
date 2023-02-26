@@ -145,6 +145,8 @@ public class PuzzleController implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         Button b1 = (Button) view;//Button Clicked
+        View root = view.getRootView();//Root View that contains EVERYTHING
+        GridLayout layout = (GridLayout) root.findViewById(R.id.glayout);
 
         if (b1.getId() == model.resetId) {//Reset button is clicked
             model.shuffledNumbers = shuffleNumbers();
@@ -166,11 +168,18 @@ public class PuzzleController implements View.OnClickListener {
         else{//Button within puzzle is clicked
             swapButtons(b1);
         }
+
+
         if (checkNumbers()) {
             //Numbers are all in the right spot, change the background color to the "correct color"
+            layout.setBackgroundColor(Color.GREEN);
         }
         else {
             //Numbers are in the wrong spot, change the background color back to black
+            layout.setBackgroundColor(Color.BLACK);
         }
+
+        //Learned how to find the root view using this: https://stackoverflow.com/questions/4761686/how-to-set-background-color-of-an-activity-to-white-programmatically
+
     }//onClick
 }
