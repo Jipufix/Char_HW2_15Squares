@@ -7,14 +7,18 @@ package com.example.charhw2_15squares;
 
   ENHANCEMENTS INCLUDED:
   - Solve Button to show that the background changes color when solved
-  - Randomly initializes in a "solvable state" (look at ValidityChecker java class)
+  - Randomly initializes in a "solvable state" (look at ValidityChecker Java class)
+  - Sound effects from SSBM added to regular buttons and solved state (look at SoundManager Java class)
  */
 
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
+
 import android.os.Bundle;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
+
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -26,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
         PuzzleView view = findViewById(R.id.puzzleView);
         PuzzleModel model = view.getPuzzleModel();
         ValidityChecker validCheck = new ValidityChecker();
-        PuzzleController controller = new PuzzleController(view, validCheck);
+        SoundManager soundManager = new SoundManager(view);
+        PuzzleController controller = new PuzzleController(view, validCheck, soundManager);
 
         Button resetBut = (Button) findViewById(model.resetId);
         Button solveBut = (Button) findViewById(model.solveId);
         resetBut.setOnClickListener(controller);
         solveBut.setOnClickListener(controller);
-
 
         model.shuffledNumbers = controller.shuffleNumbers();
         //Sets up every button to be accessed and used
@@ -44,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
                 tempBut.setOnClickListener(controller);
             }
         }
-
-
     }//onCreate
+
+    /** GETTER METHOD */
+    public Context getContext() {
+        return getApplicationContext();
+    }//getContext
 }
