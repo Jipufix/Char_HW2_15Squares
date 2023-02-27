@@ -42,7 +42,7 @@ public class ValidityChecker {
     }//indexOf16
 
     /**
-     * Actual method to be used to check whether or not a puzzle is solvable
+     * Actual method to check whether or not a puzzle is solvable
      */
     public boolean checkValidity (int[] tempArr) {
         int numInversions = numInversions(tempArr);

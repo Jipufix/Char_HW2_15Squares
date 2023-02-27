@@ -9,15 +9,22 @@ package com.example.charhw2_15squares;
 import android.widget.Button;
 
 public class PuzzleModel {
-    protected static int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
-    protected int[] shuffledNumbers = new int[16];
+    protected int puzzleSize = 4;
+    protected  int[] numbers = new int[puzzleSize * puzzleSize];
+    protected int[] shuffledNumbers = new int[puzzleSize * puzzleSize];
     int[] buttonIds = {R.id.button_00, R.id.button_01, R.id.button_02, R.id.button_03,
                         R.id.button_10, R.id.button_11, R.id.button_12, R.id.button_13,
                         R.id.button_20, R.id.button_21, R.id.button_22, R.id.button_23,
                         R.id.button_30, R.id.button_31, R.id.button_32, R.id.button_33};
     int resetId = R.id.reset;
     int solveId = R.id.solve;
-    protected Button[][] buttons = new Button[4][4];
+    protected Button[][] buttons = new Button[puzzleSize][puzzleSize];
+
+    public PuzzleModel() {
+        for (int i = 1; i <= numbers.length; i++) {
+            numbers[i - 1] = i;
+        }
+    }//ctor
 
     /** Getter method to return the row of a given button*/
     public int getRow (Button b) {

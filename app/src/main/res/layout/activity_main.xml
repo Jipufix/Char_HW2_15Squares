@@ -171,6 +171,7 @@
                     android:backgroundTint="@color/teal_200"
                     android:padding="0dp"
                     android:text="@string/reset"
+                    android:textColor="#546E7A"
                     android:textSize="20sp" />
 
                 <Button
@@ -202,6 +203,7 @@
                     android:backgroundTint="@color/teal_200"
                     android:padding="0dp"
                     android:text="@string/solve"
+                    android:textColor="#546E7A"
                     android:textSize="20sp" />
 
         </GridLayout>

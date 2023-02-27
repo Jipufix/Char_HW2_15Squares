@@ -3,7 +3,7 @@ package com.example.charhw2_15squares;
 /*
   Author: Ashton Char
   Course: CS 301A
-  Date: 2.8.23
+  Date: 2.8.23`
  */
 
 
@@ -27,8 +27,8 @@ public class PuzzleController implements View.OnClickListener {
 
     /** Shuffles the numbers array [0-15] and stores it as a separate array */
     public int[] shuffleNumbers () {
-        int[] tempArr = new int[PuzzleModel.numbers.length];
-        for (int num : PuzzleModel.numbers) {
+        int[] tempArr = new int[model.numbers.length];
+        for (int num : model.numbers) {
             tempArr[num - 1] = num;
         }
         Random random = new Random();
@@ -69,7 +69,7 @@ public class PuzzleController implements View.OnClickListener {
         for (int i = 0; i < model.buttons.length; i++) {
             for (int j = 0; j < model.buttons[i].length; j++) {
                 int num = Integer.parseInt(String.valueOf(model.buttons[i][j].getText())); //Pulls out the number from the button
-                if (!(PuzzleModel.numbers[(i * 4) + j] == num)) {
+                if (!(model.numbers[(i * 4) + j] == num)) {
                     return false;
                 }
             }
