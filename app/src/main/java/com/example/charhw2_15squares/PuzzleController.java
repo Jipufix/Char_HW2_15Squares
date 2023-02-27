@@ -8,6 +8,8 @@ package com.example.charhw2_15squares;
 
 
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -18,11 +20,13 @@ public class PuzzleController implements View.OnClickListener {
     protected PuzzleView view;
     protected PuzzleModel model;
     protected ValidityChecker vc;
+    protected SoundManager sm;
 
-    public PuzzleController (PuzzleView v, ValidityChecker validCheck) {
+    public PuzzleController (PuzzleView v, ValidityChecker validCheck, SoundManager soundManager) {
         view = v;
         model = view.getPuzzleModel();
         vc = validCheck;
+        sm = soundManager;
     }//ctor
 
     /** Shuffles the numbers array and stores it as a separate array */
@@ -97,6 +101,8 @@ public class PuzzleController implements View.OnClickListener {
 
             b1.setVisibility(View.INVISIBLE);
             b2.setVisibility(View.VISIBLE);
+
+            sm.playSound(SoundManager.blip);
         }
     }//swapButtons
 
@@ -182,13 +188,12 @@ public class PuzzleController implements View.OnClickListener {
         if (checkNumbers()) {
             //Numbers are all in the right spot, change the background color to the "correct color"
             layout.setBackgroundColor(Color.GREEN);
+            sm.playSound(SoundManager.complete);
+
         }
         else {
             //Numbers are in the wrong spot, change the background color back to black
             layout.setBackgroundColor(Color.BLACK);
         }
-
-
-
     }//onClick
 }

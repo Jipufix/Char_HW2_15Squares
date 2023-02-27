@@ -26,7 +26,7 @@ public class PuzzleModel {
         }
     }//ctor
 
-    /** Getter method to return the row of a given button*/
+    /** GETTER METHOD */
     public int getRow (Button b) {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++)
@@ -37,7 +37,7 @@ public class PuzzleModel {
         return -1;
     }//getRow
 
-    /** Getter method to return the column of a given button*/
+    /** GETTER METHOD */
     public int getCol (Button b) {
         for (Button[] button : buttons) {
             for (int j = 0; j < button.length; j++)

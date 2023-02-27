@@ -11,8 +11,6 @@ import android.util.AttributeSet;
 import android.view.SurfaceView;
 
 public class PuzzleView extends SurfaceView{
-
-
     private final PuzzleModel model;
 
     public PuzzleView(Context context, AttributeSet attrs) {
@@ -25,10 +23,7 @@ public class PuzzleView extends SurfaceView{
         setWillNotDraw(false);
     }//ctor
 
-
-
-
-    /** PuzzleModel getter method */
+    /** GETTER METHOD */
     public PuzzleModel getPuzzleModel() {
         return model;
     }
