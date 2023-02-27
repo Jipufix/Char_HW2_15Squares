@@ -8,8 +8,6 @@ package com.example.charhw2_15squares;
 
 
 import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -43,7 +41,7 @@ public class PuzzleController implements View.OnClickListener {
             tempArr[rand] = temp;
         }
 
-        while (!vc.checkValidity(tempArr, model)) {//recursive case until a valid set of numbers is reached
+        if (!vc.checkValidity(tempArr, model)) {//recursive call until a valid set of numbers is reached
             tempArr = shuffleNumbers();
         }
 
@@ -161,7 +159,7 @@ public class PuzzleController implements View.OnClickListener {
 
         //Learned how to find the root view using this: https://stackoverflow.com/questions/4761686/how-to-set-background-color-of-an-activity-to-white-programmatically
         View root = view.getRootView();//Root View that contains EVERYTHING
-        GridLayout layout = (GridLayout) root.findViewById(R.id.glayout);
+        GridLayout layout = root.findViewById(R.id.glayout);
 
         if (b1.getId() == model.resetId) {//Reset button is clicked
             model.shuffledNumbers = shuffleNumbers();
