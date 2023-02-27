@@ -4,15 +4,16 @@ package com.example.charhw2_15squares;
   Author: Ashton Char
   Course: CS 301A
   Date: 2.8.23
+
+  ENHANCEMENTS INCLUDED:
+  - Solve Button to show that the background changes color when solved
+  - Randomly initializes in a "solvable state" (look at ValidityChecker java class)
  */
+
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.GridLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
         PuzzleView view = findViewById(R.id.puzzleView);
         PuzzleModel model = view.getPuzzleModel();
-        PuzzleController controller = new PuzzleController(view);
+        ValidityChecker validCheck = new ValidityChecker();
+        PuzzleController controller = new PuzzleController(view, validCheck);
 
         Button resetBut = (Button) findViewById(model.resetId);
         Button solveBut = (Button) findViewById(model.solveId);

@@ -7,7 +7,6 @@ package com.example.charhw2_15squares;
  */
 
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 public class PuzzleModel {
     protected static int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};

@@ -8,7 +8,6 @@ package com.example.charhw2_15squares;
 
 
 import android.graphics.Color;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -18,11 +17,12 @@ import java.util.Random;
 public class PuzzleController implements View.OnClickListener {
     protected PuzzleView view;
     protected PuzzleModel model;
+    protected ValidityChecker vc;
 
-
-    public PuzzleController (PuzzleView v) {
+    public PuzzleController (PuzzleView v, ValidityChecker validCheck) {
         view = v;
         model = view.getPuzzleModel();
+        vc = validCheck;
     }//ctor
 
     /** Shuffles the numbers array [0-15] and stores it as a separate array */
@@ -37,6 +37,10 @@ public class PuzzleController implements View.OnClickListener {
             int temp = tempArr[i];
             tempArr[i] = tempArr[rand];
             tempArr[rand] = temp;
+        }
+
+        if (!vc.checkValidity(tempArr)) {
+            tempArr = shuffleNumbers();
         }
 
         return tempArr;
@@ -73,7 +77,32 @@ public class PuzzleController implements View.OnClickListener {
         return true;
     }//checkNumbers
 
-    /** Helper method to find the invisible button*/
+    /**
+     * Swaps a clicked button with the invisible button
+     *
+     * @param b1 The button clicked that needs to be swapped
+     */
+    public void swapButtons (Button b1){
+        Button b2;
+        if (findInvButton() != null) {
+            b2 = findInvButton(); //Invisible Button
+        } else {return;}
+
+        int row = model.getRow(b2); int col = model.getCol(b2);
+
+        if (isAdjacent(b1, row, col)) {
+            String temp = (String) (b1.getText());
+            b1.setText(b2.getText());
+            b2.setText(temp);
+
+            b1.setVisibility(View.INVISIBLE);
+            b2.setVisibility(View.VISIBLE);
+        }
+    }//swapButtons
+
+    /** HELPER METHOD
+     * Finds the invisible button
+     * */
     public Button findInvButton () {
         for (int i = 0; i < model.buttons.length ; i++) {
             for (int j = 0; j < model.buttons[i].length; j++) {
@@ -86,6 +115,7 @@ public class PuzzleController implements View.OnClickListener {
     }//findInvButton
 
     /**
+     * HELPER METHOD
      * Checks to see if a button is adjacent to the invisible button
      *
      * @param b    The button to be checked
@@ -119,32 +149,11 @@ public class PuzzleController implements View.OnClickListener {
         return swappable;
     }//isAdjacent
 
-    /**
-     * Swaps a clicked button with the invisible button
-     *
-     * @param b1 The button clicked that needs to be swapped
-     */
-    public void swapButtons (Button b1){
-        Button b2;
-        if (findInvButton() != null) {
-            b2 = findInvButton(); //Invisible Button
-        } else {return;}
-
-        int row = model.getRow(b2); int col = model.getCol(b2);
-
-        if (isAdjacent(b1, row, col)) {
-            String temp = (String) (b1.getText());
-            b1.setText(b2.getText());
-            b2.setText(temp);
-
-            b1.setVisibility(View.INVISIBLE);
-            b2.setVisibility(View.VISIBLE);
-        }
-    }//swapButtons
-
     @Override
     public void onClick(View view) {
         Button b1 = (Button) view;//Button Clicked
+
+        //Learned how to find the root view using this: https://stackoverflow.com/questions/4761686/how-to-set-background-color-of-an-activity-to-white-programmatically
         View root = view.getRootView();//Root View that contains EVERYTHING
         GridLayout layout = (GridLayout) root.findViewById(R.id.glayout);
 
@@ -169,7 +178,7 @@ public class PuzzleController implements View.OnClickListener {
             swapButtons(b1);
         }
 
-
+        //This is where the background is checked after the buttons' actions are completed
         if (checkNumbers()) {
             //Numbers are all in the right spot, change the background color to the "correct color"
             layout.setBackgroundColor(Color.GREEN);
@@ -179,7 +188,7 @@ public class PuzzleController implements View.OnClickListener {
             layout.setBackgroundColor(Color.BLACK);
         }
 
-        //Learned how to find the root view using this: https://stackoverflow.com/questions/4761686/how-to-set-background-color-of-an-activity-to-white-programmatically
+
 
     }//onClick
 }
