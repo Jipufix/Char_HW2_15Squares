@@ -15,7 +15,8 @@ public class ValidityChecker {
      * @param tempArr The temporary array of shuffled ints to be checked
      * @return        The total number of inversions in "tempArr"
      */
-    public int numInversions (int[] tempArr) {
+
+    public int numInversions (int[] tempArr, PuzzleModel model) {
         int counter = 0;
         for (int i = 0; i < tempArr.length - 1; i++) {
             for (int j = i + 1; j < tempArr.length; j++) {
@@ -30,12 +31,14 @@ public class ValidityChecker {
      * HELPER METHOD
      * Returns the row of the invisible button
      *
-     * @return        The row of the "invisible button"
+     * @return The row number of rows from the bottom starting from 1
      */
-    private int indexOf16 (int[] tempArr) {
-        for (int i = 0; i < tempArr.length - 1; i++) {
-            if (tempArr[i] == 16) {
-                return i / 4;
+    private int indexOf16 (int[] tempArr, PuzzleModel model) {
+        for (int i = model.puzzleSize - 1; i >= 0; i--) {
+            for (int j = model.puzzleSize - 1; j >= 0; j--) {
+                if (tempArr[(i * 4) + j] == 16) {
+                    return model.puzzleSize - i;
+                }
             }
         }
         return -1;
@@ -44,9 +47,9 @@ public class ValidityChecker {
     /**
      * Actual method to check whether or not a puzzle is solvable
      */
-    public boolean checkValidity (int[] tempArr) {
-        int numInversions = numInversions(tempArr);
-        int row = indexOf16(tempArr);
+    public boolean checkValidity (int[] tempArr, PuzzleModel model) {
+        int numInversions = numInversions(tempArr, model);
+        int row = indexOf16(tempArr, model);//Taken from bottom to top, so you subtract from the total
 
         if (Math.sqrt(tempArr.length) % 2 == 1) {//odd number of rows
             return numInversions % 2 == 0;//Needs even inv

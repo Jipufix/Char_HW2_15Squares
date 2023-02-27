@@ -25,7 +25,7 @@ public class PuzzleController implements View.OnClickListener {
         vc = validCheck;
     }//ctor
 
-    /** Shuffles the numbers array [0-15] and stores it as a separate array */
+    /** Shuffles the numbers array and stores it as a separate array */
     public int[] shuffleNumbers () {
         int[] tempArr = new int[model.numbers.length];
         for (int num : model.numbers) {
@@ -39,7 +39,7 @@ public class PuzzleController implements View.OnClickListener {
             tempArr[rand] = temp;
         }
 
-        if (!vc.checkValidity(tempArr)) {
+        while (!vc.checkValidity(tempArr, model)) {//recursive case until a valid set of numbers is reached
             tempArr = shuffleNumbers();
         }
 
